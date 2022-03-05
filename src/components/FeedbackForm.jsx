@@ -47,6 +47,8 @@ function FeedbackForm() {
       } else {
         addFeedback(newFeedback);
       }
+      setBtnDisabled(true); // 👈  add this line to reset disabled
+      setRating(10); //👈 add this line to set rating back to 10
       setText("");
     }
   };
