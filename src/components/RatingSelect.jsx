@@ -1,17 +1,14 @@
-import { useState, useContext, useEffect } from "react";
-import FeedbackContext from "../context/FeedbackContext";
-
-function RatingSelect({ select }) {
-  const [selected, setSelect] = useState(10);
+function RatingSelect({ select, selected }) {
   const handleChange = (e) => {
-    setSelect(+e.currentTarget.value);
     select(+e.currentTarget.value);
   };
-  const { feedbackEditMode } = useContext(FeedbackContext);
+  // const { feedbackEditMode } = useContext(FeedbackContext);
+  // NOTE: We don't need local state here as it's a duplicate of parent state
+  // also no real need for useEffect or context
+  // useEffect(() => {
+  //   select(feedbackEdit.item.rating)
+  // }, [feedbackEdit])
 
-  useEffect(() => {
-    setSelect(feedbackEditMode.item.rating);
-  }, [feedbackEditMode]);
   return (
     <ul className="rating">
       {Array.from({ length: 10 }, (_, i) => (

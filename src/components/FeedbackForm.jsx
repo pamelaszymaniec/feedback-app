@@ -21,20 +21,21 @@ function FeedbackForm() {
     }
   }, [feedbackEditMode]);
 
-  const handleTextChange = (e) => {
-    if (text === "") {
+  // prettier-ignore
+  const handleTextChange = ({ target: { value } }) => { // 👈  get the value
+    if (value === "") {
       setBtnDisabled(true);
       setMessage(null);
-    } else if (text !== "" && text.trim().length <= 10) {
+  // prettier-ignore
+    } else if (value.trim().length < 10) { // 👈 check for less than 10
+      setMessage("Text must be at least 10 characters");
       setBtnDisabled(true);
-      setMessage("Test must be a least 10 characters");
     } else {
       setMessage(null);
       setBtnDisabled(false);
     }
-    setText(e.target.value);
+    setText(value);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim().length > 10) {
@@ -55,7 +56,7 @@ function FeedbackForm() {
   return (
     <Card>
       <form onSubmit={handleSubmit}>
-        <RatingSelect select={(rating) => setRating(rating)} />
+        <RatingSelect select={setRating} selected={rating} />
         <h2>How would you rate your service with us?</h2>
         <div className="input-group">
           <input
